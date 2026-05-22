@@ -14,6 +14,50 @@ The skill files are **vendored** — copied into this repo from their upstream r
 > The marketplace lives at [`ai/marketplace`](https://gitlab.its.xyz/ai/marketplace) on the company GitLab. You can also add it from a local clone:
 > `/plugin marketplace add /path/to/marketplace`
 
+## Browsing and managing plugins
+
+Plugins are managed from inside a Claude Code session with `/plugin` commands — there is no `claude plugin` CLI.
+
+**See everything available** — `/plugin` opens an interactive browser (Discover / Installed / Marketplaces / Errors tabs); the **Discover** tab lists every toolkit in this marketplace with its description and context cost:
+
+```text
+/plugin
+```
+
+**Everyday commands:**
+
+```text
+/plugin marketplace list                      # marketplaces you have added
+/plugin install <toolkit>@its-marketplace     # install a toolkit
+/plugin uninstall <toolkit>@its-marketplace   # remove it
+/plugin disable <toolkit>@its-marketplace     # keep it installed but turn it off
+/plugin enable <toolkit>@its-marketplace      # turn it back on
+/reload-plugins                               # apply changes without restarting
+```
+
+`<toolkit>` is one of `django-toolkit`, `testing-toolkit`, `frontend-toolkit`, `devops-toolkit`, `content-toolkit`.
+
+**Install for the whole team** — add `--scope project` to record the choice in the repo's `.claude/settings.json`, so every collaborator is offered the toolkit:
+
+```text
+/plugin install django-toolkit@its-marketplace --scope project
+```
+
+**Pull the latest** — after new skill versions are merged here (see [Updating skills from upstream](#updating-skills-from-upstream)), refresh your session with:
+
+```text
+/plugin marketplace update its-marketplace
+/reload-plugins
+```
+
+**Stop using the marketplace:**
+
+```text
+/plugin marketplace remove its-marketplace
+```
+
+The toolkits are **skill-based**: once installed and enabled, their skills activate automatically when relevant — there are no commands to memorize. Check `/plugin` → **Installed** to confirm a toolkit is active.
+
 ## What's inside
 
 Five toolkits bundling **13 skills**:
