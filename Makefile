@@ -6,7 +6,7 @@ PLUGINS := $(notdir $(wildcard plugins/*))
 # Use uv when available (preferred), else fall back to python3 (e.g. in CI).
 PYTHON := $(shell command -v uv >/dev/null 2>&1 && echo 'uv run' || echo 'python3')
 
-.PHONY: help validate sync diff list tree
+.PHONY: help validate docs docs-check sync diff list tree
 
 help: ## Show available targets
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
@@ -22,6 +22,12 @@ validate: ## Validate marketplace.json, sources.json, every plugin.json and .mcp
 		fi; \
 	done
 	@echo "All manifests are valid JSON."
+
+docs: ## Regenerate the auto-maintained sections of README.md
+	@$(PYTHON) scripts/gen_docs.py
+
+docs-check: ## Fail if README.md's generated sections are stale
+	@$(PYTHON) scripts/gen_docs.py --check
 
 sync: ## Re-vendor every skill from its upstream repo (see sources.json)
 	@$(PYTHON) scripts/sync.py

@@ -1,4 +1,5 @@
-# Checks that every JSON manifest parses, on each push to main and every PR.
+# Static checks on each push to main and every PR: JSON manifests parse, and
+# the generated README sections are in sync with the manifests.
 name: validate
 
 on:
@@ -11,4 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: make validate
+      - name: Validate JSON manifests
+        run: make validate
+      - name: Check generated README sections
+        run: make docs-check
