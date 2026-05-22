@@ -1,17 +1,17 @@
 # ITS Marketplace
 
-A private [Claude Code](https://docs.claude.com/en/docs/claude-code) plugin marketplace for the ITS team. It packages the skills our engineers rely on into five installable toolkits, so every teammate gets the same standards with a single command.
+A [Claude Code](https://docs.claude.com/en/docs/claude-code) plugin marketplace for the ITS team. It packages the skills our engineers rely on into five installable toolkits, so every teammate gets the same standards with a single command.
 
 The skill files are **vendored** — copied into this repo from their upstream repositories — and refreshed on demand with `make sync`. [`sources.json`](sources.json) records exactly where every skill comes from, so updates are traceable and reviewed before they reach the whole team.
 
 ## Quick start
 
 ```text
-/plugin marketplace add ssh://git@gitlab.its.xyz:2224/ai/marketplace.git
+/plugin marketplace add leins275/marketplace
 /plugin install django-toolkit@its-marketplace
 ```
 
-> The marketplace lives at [`ai/marketplace`](https://gitlab.its.xyz/ai/marketplace) on the company GitLab. You can also add it from a local clone:
+> The marketplace lives at [`leins275/marketplace`](https://github.com/leins275/marketplace) on GitHub. You can also add it from a local clone:
 > `/plugin marketplace add /path/to/marketplace`
 
 ## Browsing and managing plugins
@@ -96,15 +96,16 @@ make diff     # review what changed before committing
 
 To refresh a single skill: `uv run scripts/sync.py django-patterns`.
 
-### Automated sync (GitLab CI)
+### Automated sync (GitHub Actions)
 
-The `sync-skills` CI job does this for you on a schedule: it runs `make sync` and, if anything changed, opens a **merge request** with the diff. New skill versions reach the team only when someone reviews and merges that MR — the automation handles the clone-copy-diff grunt work, not the rollout decision.
+The `sync-skills` workflow does this for you on a weekly schedule: it runs `make sync` and, if anything changed, opens a **pull request** with the diff. New skill versions reach the team only when someone reviews and merges that PR — the automation handles the clone-copy-diff grunt work, not the rollout decision. You can also run it on demand from the repo's **Actions** tab with **Run workflow**.
 
-One-time setup in the GitLab project:
+One-time setup in the GitHub repo — **Settings → Actions → General → Workflow permissions**:
 
-1. **Settings → Access Tokens** — create a Project Access Token, role _Developer_, scope _write_repository_.
-2. **Settings → CI/CD → Variables** — add it as a masked variable named `SYNC_TOKEN`.
-3. **Settings → CI/CD → Pipeline schedules** — add a schedule (e.g. weekly); each run triggers `sync-skills`.
+1. Select **Read and write permissions**.
+2. Tick **Allow GitHub Actions to create and approve pull requests**.
+
+No tokens to manage: the workflow authenticates with the built-in `GITHUB_TOKEN`. Change the cadence by editing the `cron:` line in [`.github/workflows/sync-skills.yml`](.github/workflows/sync-skills.yml).
 
 ## Working with the marketplace
 
@@ -129,7 +130,7 @@ marketplace/
 ├── sources.json                # upstream repo + path for every vendored skill
 ├── scripts/sync.py             # re-vendors skills from sources.json
 ├── Makefile
-└── .gitlab-ci.yml              # CI: validate manifests + scheduled upstream sync
+└── .github/workflows/         # CI: validate manifests + scheduled upstream sync
 ```
 
 ## Adding a skill

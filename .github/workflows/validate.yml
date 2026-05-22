@@ -1,0 +1,14 @@
+# Checks that every JSON manifest parses, on each push to main and every PR.
+name: validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: make validate

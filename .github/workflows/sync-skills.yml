@@ -1,0 +1,48 @@
+# Re-vendors skills from their upstream repos (see sources.json) on a weekly
+# schedule and, if anything changed, opens a pull request with the diff.
+# Trigger it on demand from the Actions tab with "Run workflow".
+#
+# One-time setup — Settings > Actions > General > Workflow permissions:
+#   1. Select "Read and write permissions".
+#   2. Tick "Allow GitHub Actions to create and approve pull requests".
+# No tokens to manage; the job authenticates with the built-in GITHUB_TOKEN.
+name: sync-skills
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'   # every Monday, 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Re-vendor skills from upstream
+        run: make sync
+
+      - name: Open a pull request if anything changed
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if git diff --quiet -- plugins/; then
+            echo "No upstream changes — nothing to sync."
+            exit 0
+          fi
+          BRANCH="auto/skill-sync-$(date +%Y%m%d-%H%M)"
+          git config user.name "skill-sync-bot"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add plugins/
+          git commit -m "chore: sync skills from upstream repos"
+          git push origin "$BRANCH"
+          gh pr create \
+            --base main \
+            --head "$BRANCH" \
+            --title "chore: sync skills from upstream" \
+            --body "Automated skill sync. Review the diff, then merge to roll out."
