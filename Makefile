@@ -12,11 +12,14 @@ help: ## Show available targets
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
 		| awk 'BEGIN{FS=":.*?## "}{printf "  \033[36m%-10s\033[0m %s\n", $$1, $$2}'
 
-validate: ## Validate marketplace.json, sources.json and every plugin.json
+validate: ## Validate marketplace.json, sources.json, every plugin.json and .mcp.json
 	@python3 -c "import json; json.load(open('.claude-plugin/marketplace.json')); print('OK  .claude-plugin/marketplace.json')"
 	@python3 -c "import json; json.load(open('sources.json')); print('OK  sources.json')"
 	@for p in $(PLUGINS); do \
 		python3 -c "import json; json.load(open('plugins/$$p/.claude-plugin/plugin.json')); print('OK  plugins/$$p/.claude-plugin/plugin.json')" || exit 1; \
+		if [ -f plugins/$$p/.mcp.json ]; then \
+			python3 -c "import json; json.load(open('plugins/$$p/.mcp.json')); print('OK  plugins/$$p/.mcp.json')" || exit 1; \
+		fi; \
 	done
 	@echo "All manifests are valid JSON."
 
@@ -27,9 +30,10 @@ diff: ## Show what `make sync` changed in the vendored skills
 	@git diff --stat -- plugins/ || true
 
 list: ## List plugins and the skills they bundle
-	@for p in $(PLUGINS); do \
+	@shopt -s nullglob; for p in $(PLUGINS); do \
 		echo "$$p"; \
 		for s in plugins/$$p/skills/*/; do echo "    - $$(basename $$s)"; done; \
+		if [ -f plugins/$$p/.mcp.json ]; then echo "    - (MCP server)"; fi; \
 	done
 
 tree: ## Print the repository layout

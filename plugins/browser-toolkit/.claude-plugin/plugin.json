@@ -1,0 +1,9 @@
+{
+  "name": "browser-toolkit",
+  "description": "Browser automation for Claude — bundles the Playwright MCP server so Claude can drive a real browser: navigate, click, fill forms, capture screenshots and inspect pages.",
+  "version": "1.0.0",
+  "author": {
+    "name": "ITS",
+    "email": "leins275@gmail.com"
+  }
+}

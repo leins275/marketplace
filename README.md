@@ -1,6 +1,6 @@
 # ITS Marketplace
 
-A [Claude Code](https://docs.claude.com/en/docs/claude-code) plugin marketplace for the ITS team. It packages the skills our engineers rely on into five installable toolkits, so every teammate gets the same standards with a single command.
+A [Claude Code](https://docs.claude.com/en/docs/claude-code) plugin marketplace for the ITS team. It packages the skills and tools our engineers rely on into six installable toolkits, so every teammate gets the same standards with a single command.
 
 The skill files are **vendored** — copied into this repo from their upstream repositories — and refreshed on demand with `make sync`. [`sources.json`](sources.json) records exactly where every skill comes from, so updates are traceable and reviewed before they reach the whole team.
 
@@ -35,7 +35,7 @@ Plugins are managed from inside a Claude Code session with `/plugin` commands �
 /reload-plugins                               # apply changes without restarting
 ```
 
-`<toolkit>` is one of `django-toolkit`, `testing-toolkit`, `frontend-toolkit`, `devops-toolkit`, `content-toolkit`.
+`<toolkit>` is one of `django-toolkit`, `testing-toolkit`, `browser-toolkit`, `frontend-toolkit`, `devops-toolkit`, `content-toolkit`.
 
 **Install for the whole team** — add `--scope project` to record the choice in the repo's `.claude/settings.json`, so every collaborator is offered the toolkit:
 
@@ -60,12 +60,13 @@ The toolkits are **skill-based**: once installed and enabled, their skills activ
 
 ## What's inside
 
-Five toolkits bundling **13 skills**:
+Six toolkits — **13 skills** plus a bundled **MCP server**:
 
-| Toolkit | Skills | Use it for |
+| Toolkit | Bundles | Use it for |
 | --- | --- | --- |
 | [`django-toolkit`](plugins/django-toolkit) | django-patterns, django-security, django-verification | Building, hardening and verifying Django services |
 | [`testing-toolkit`](plugins/testing-toolkit) | python-testing-patterns, e2e-testing-patterns, webapp-testing | Pytest, end-to-end and live web-app testing |
+| [`browser-toolkit`](plugins/browser-toolkit) | Playwright MCP server | Driving a real browser — navigation, clicks, forms, screenshots |
 | [`frontend-toolkit`](plugins/frontend-toolkit) | frontend-design, ui-ux-pro-max | Designing and building polished UIs |
 | [`devops-toolkit`](plugins/devops-toolkit) | docker-patterns, postgres-patterns, devops-rollout-plan | Containers, databases and safe rollouts |
 | [`content-toolkit`](plugins/content-toolkit) | copywriting, find-skills | Marketing copy and discovering new skills |
@@ -126,6 +127,7 @@ marketplace/
 │   └── <toolkit>/
 │       ├── .claude-plugin/plugin.json
 │       ├── skills/             # vendored skills — refreshed by `make sync`
+│       ├── .mcp.json           # bundled MCP server (browser-toolkit)
 │       └── README.md
 ├── sources.json                # upstream repo + path for every vendored skill
 ├── scripts/sync.py             # re-vendors skills from sources.json
@@ -141,7 +143,7 @@ marketplace/
 
 ## Adding a plugin
 
-1. Create `plugins/<name>/` with a `.claude-plugin/plugin.json` and a `skills/` directory.
+1. Create `plugins/<name>/` with a `.claude-plugin/plugin.json`, plus a `skills/` directory and/or a `.mcp.json` (to bundle an MCP server).
 2. Register the plugin in `.claude-plugin/marketplace.json` under `plugins`.
 3. Add each skill to `sources.json`, then run `make sync` and `make validate`.
 

@@ -24,6 +24,14 @@
       "keywords": ["pytest", "playwright", "cypress", "e2e", "tdd"]
     },
     {
+      "name": "browser-toolkit",
+      "source": "./plugins/browser-toolkit",
+      "description": "Browser automation for Claude — bundles the Playwright MCP server so Claude can drive a real browser: navigate, click, fill forms, capture screenshots and inspect pages.",
+      "author": { "name": "ITS" },
+      "category": "testing",
+      "keywords": ["playwright", "mcp", "browser", "automation", "e2e"]
+    },
+    {
       "name": "frontend-toolkit",
       "source": "./plugins/frontend-toolkit",
       "description": "Frontend and UI/UX design — distinctive, production-grade interfaces plus a design-intelligence library of styles, palettes and font pairings. Bundles frontend-design and ui-ux-pro-max.",
