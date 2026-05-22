@@ -1,0 +1,9 @@
+{
+  "name": "devops-toolkit",
+  "description": "DevOps and infrastructure — Docker & Compose patterns, PostgreSQL optimization and schema design, and structured rollout planning with rollback procedures. Bundles docker-patterns, postgres-patterns and devops-rollout-plan.",
+  "version": "1.0.0",
+  "author": {
+    "name": "ITS",
+    "email": "leins275@gmail.com"
+  }
+}

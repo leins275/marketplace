@@ -1,0 +1,9 @@
+{
+  "name": "django-toolkit",
+  "description": "Django development standard — architecture & DRF patterns, security hardening, and a pre-release verification loop. Bundles django-patterns, django-security and django-verification.",
+  "version": "1.0.0",
+  "author": {
+    "name": "ITS",
+    "email": "leins275@gmail.com"
+  }
+}

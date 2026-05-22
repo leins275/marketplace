@@ -1,0 +1,51 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "its-marketplace",
+  "description": "ITS internal Claude Code marketplace — curated toolkits bundling the team's standard skills for Django, testing, frontend, DevOps and content.",
+  "owner": {
+    "name": "ITS",
+    "email": "leins275@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "django-toolkit",
+      "source": "./plugins/django-toolkit",
+      "description": "Django development standard — architecture & DRF patterns, security hardening, and a pre-release verification loop. Bundles django-patterns, django-security and django-verification.",
+      "author": { "name": "ITS" },
+      "category": "development",
+      "keywords": ["django", "drf", "security", "orm", "verification"]
+    },
+    {
+      "name": "testing-toolkit",
+      "source": "./plugins/testing-toolkit",
+      "description": "Testing standards for Python services and web apps — pytest & TDD patterns, Playwright/Cypress end-to-end suites, and live web-app debugging. Bundles python-testing-patterns, e2e-testing-patterns and webapp-testing.",
+      "author": { "name": "ITS" },
+      "category": "testing",
+      "keywords": ["pytest", "playwright", "cypress", "e2e", "tdd"]
+    },
+    {
+      "name": "frontend-toolkit",
+      "source": "./plugins/frontend-toolkit",
+      "description": "Frontend and UI/UX design — distinctive, production-grade interfaces plus a design-intelligence library of styles, palettes and font pairings. Bundles frontend-design and ui-ux-pro-max.",
+      "author": { "name": "ITS" },
+      "category": "design",
+      "keywords": ["frontend", "ui", "ux", "design", "css"]
+    },
+    {
+      "name": "devops-toolkit",
+      "source": "./plugins/devops-toolkit",
+      "description": "DevOps and infrastructure — Docker & Compose patterns, PostgreSQL optimization and schema design, and structured rollout planning with rollback procedures. Bundles docker-patterns, postgres-patterns and devops-rollout-plan.",
+      "author": { "name": "ITS" },
+      "category": "devops",
+      "keywords": ["docker", "postgres", "rollout", "deployment", "infrastructure"]
+    },
+    {
+      "name": "content-toolkit",
+      "source": "./plugins/content-toolkit",
+      "description": "Content creation and skill discovery — marketing copywriting for web pages and a helper for finding and installing new skills. Bundles copywriting and find-skills.",
+      "author": { "name": "ITS" },
+      "category": "productivity",
+      "keywords": ["copywriting", "marketing", "content", "skills"]
+    }
+  ]
+}

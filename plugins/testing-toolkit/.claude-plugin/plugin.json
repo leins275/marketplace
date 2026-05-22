@@ -1,0 +1,9 @@
+{
+  "name": "testing-toolkit",
+  "description": "Testing standards for Python services and web apps — pytest & TDD patterns, Playwright/Cypress end-to-end suites, and live web-app debugging. Bundles python-testing-patterns, e2e-testing-patterns and webapp-testing.",
+  "version": "1.0.0",
+  "author": {
+    "name": "ITS",
+    "email": "leins275@gmail.com"
+  }
+}

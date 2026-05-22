@@ -1,0 +1,9 @@
+{
+  "name": "content-toolkit",
+  "description": "Content creation and skill discovery — marketing copywriting for web pages and a helper for finding and installing new skills. Bundles copywriting and find-skills.",
+  "version": "1.0.0",
+  "author": {
+    "name": "ITS",
+    "email": "leins275@gmail.com"
+  }
+}

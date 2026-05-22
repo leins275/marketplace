@@ -1,0 +1,12 @@
+# Local Claude Code session settings
+.claude/settings.local.json
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
