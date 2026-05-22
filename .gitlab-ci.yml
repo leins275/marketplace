@@ -1,0 +1,68 @@
+# CI for the ITS marketplace.
+#
+#   validate     - every push / merge request: checks all JSON manifests.
+#   sync-skills  - scheduled runs only: re-vendors skills from upstream and,
+#                  if anything changed, opens a merge request with the diff.
+#
+# One-time setup for sync-skills, in the GitLab project settings:
+#   1. Settings > Access Tokens   - create a Project Access Token,
+#                                   role: Developer, scope: write_repository.
+#   2. Settings > CI/CD > Variables - add it as a masked variable: SYNC_TOKEN.
+#   3. Settings > CI/CD > Pipeline schedules - add a schedule (e.g. weekly);
+#      each scheduled run triggers sync-skills.
+
+stages:
+  - validate
+  - sync
+
+# Avoid duplicate pipelines: one per MR, one per branch (none once an MR exists).
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS
+      when: never
+    - if: $CI_COMMIT_BRANCH
+
+default:
+  image: python:3.12
+  before_script:
+    - apt-get update -qq && apt-get install -y -qq --no-install-recommends make
+
+validate:
+  stage: validate
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - when: on_success
+  script:
+    - make validate
+
+sync-skills:
+  stage: sync
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+  variables:
+    GIT_DEPTH: "0"
+  script:
+    - make sync
+    - |
+      if git diff --quiet -- plugins/; then
+        echo "No upstream changes — nothing to sync."
+        exit 0
+      fi
+      BRANCH="auto/skill-sync-$(date +%Y%m%d-%H%M)"
+      git config user.name "Skill Sync Bot"
+      git config user.email "skill-sync-bot@its.xyz"
+      git checkout -b "$BRANCH"
+      git add plugins/
+      git commit -m "chore: sync skills from upstream repos"
+      git push \
+        -o merge_request.create \
+        -o merge_request.target=main \
+        -o merge_request.title="chore: sync skills from upstream" \
+        -o merge_request.description="Automated skill sync. Review the diff, then merge to roll out." \
+        -o merge_request.remove_source_branch \
+        "${CI_SERVER_PROTOCOL}://oauth2:${SYNC_TOKEN}@${CI_SERVER_HOST}:${CI_SERVER_PORT}/${CI_PROJECT_PATH}.git" \
+        "HEAD:${BRANCH}"
+      echo "Opened a merge request for $BRANCH"

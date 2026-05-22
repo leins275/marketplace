@@ -1,0 +1,81 @@
+{
+  "comment": "Upstream sources for every vendored skill. Each skills/<name>/ directory is a vendored copy — do not hand-edit it. Run `make sync` to re-pull from upstream, then `make diff` to review before committing. To re-point a skill, change its entry here. Skills with \"source\": \"local\" have no upstream and are left untouched by sync.",
+  "skills": {
+    "django-patterns": {
+      "plugin": "django-toolkit",
+      "repo": "https://github.com/affaan-m/ECC.git",
+      "ref": "main",
+      "path": "skills/django-patterns"
+    },
+    "django-security": {
+      "plugin": "django-toolkit",
+      "repo": "https://github.com/affaan-m/ECC.git",
+      "ref": "main",
+      "path": "skills/django-security"
+    },
+    "django-verification": {
+      "plugin": "django-toolkit",
+      "repo": "https://github.com/affaan-m/ECC.git",
+      "ref": "main",
+      "path": "skills/django-verification"
+    },
+    "python-testing-patterns": {
+      "plugin": "testing-toolkit",
+      "repo": "https://github.com/wshobson/agents.git",
+      "ref": "main",
+      "path": "plugins/python-development/skills/python-testing-patterns"
+    },
+    "e2e-testing-patterns": {
+      "plugin": "testing-toolkit",
+      "repo": "https://github.com/wshobson/agents.git",
+      "ref": "main",
+      "path": "plugins/developer-essentials/skills/e2e-testing-patterns"
+    },
+    "webapp-testing": {
+      "plugin": "testing-toolkit",
+      "repo": "https://github.com/anthropics/skills.git",
+      "ref": "main",
+      "path": "skills/webapp-testing"
+    },
+    "frontend-design": {
+      "plugin": "frontend-toolkit",
+      "repo": "https://github.com/anthropics/skills.git",
+      "ref": "main",
+      "path": "skills/frontend-design"
+    },
+    "ui-ux-pro-max": {
+      "plugin": "frontend-toolkit",
+      "repo": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.git",
+      "ref": "main",
+      "path": ".claude/skills/ui-ux-pro-max"
+    },
+    "docker-patterns": {
+      "plugin": "devops-toolkit",
+      "repo": "https://github.com/affaan-m/ECC.git",
+      "ref": "main",
+      "path": "skills/docker-patterns"
+    },
+    "postgres-patterns": {
+      "plugin": "devops-toolkit",
+      "repo": "https://github.com/affaan-m/ECC.git",
+      "ref": "main",
+      "path": "skills/postgres-patterns"
+    },
+    "devops-rollout-plan": {
+      "plugin": "devops-toolkit",
+      "source": "local"
+    },
+    "copywriting": {
+      "plugin": "content-toolkit",
+      "repo": "https://github.com/coreyhaines31/marketingskills.git",
+      "ref": "main",
+      "path": "skills/copywriting"
+    },
+    "find-skills": {
+      "plugin": "content-toolkit",
+      "repo": "https://github.com/vercel-labs/skills.git",
+      "ref": "main",
+      "path": "skills/find-skills"
+    }
+  }
+}

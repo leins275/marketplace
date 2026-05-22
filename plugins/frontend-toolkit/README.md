@@ -9,7 +9,7 @@ The ITS toolkit for designing and building polished user interfaces. Bundles two
 | `frontend-design` | Create distinctive, production-grade frontend interfaces with high design quality that avoid generic AI aesthetics. |
 | `ui-ux-pro-max` | UI/UX design intelligence — 50+ styles, 161 color palettes, 57 font pairings and 25 chart types across 10 stacks. |
 
-> **Note:** `ui-ux-pro-max` ships its `SKILL.md` guidance only. The optional `data/` design library and `scripts/search.py` helper were not present in the source install (the global skill linked to a missing directory), so the bundled copy provides the full inline design guidance without the search script. Restore those files into `skills/ui-ux-pro-max/` if you locate them.
+> **Note:** `ui-ux-pro-max` is vendored from [`nextlevelbuilder/ui-ux-pro-max-skill`](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) and ships the `SKILL.md` design guidance. That upstream repo also offers an optional CLI with an extended design-data library; install it separately from the upstream repo if you need the `search` tooling referenced inside the skill.
 
 ## Install
 
