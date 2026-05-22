@@ -7,12 +7,12 @@ A private [Claude Code](https://docs.claude.com/en/docs/claude-code) plugin mark
 Add the marketplace, then install the toolkits you need:
 
 ```text
-/plugin marketplace add leins275/its-marketplace
+/plugin marketplace add ssh://git@gitlab.its.xyz:2224/ai/marketplace.git
 /plugin install django-toolkit@its-marketplace
 ```
 
-> Replace `leins275/its-marketplace` with the repository's location once it is pushed to the company Git host. You can also add it straight from a local clone:
-> `/plugin marketplace add /home/leins275/Projects/its/marketplace`
+> The marketplace lives at [`ai/marketplace`](https://gitlab.its.xyz/ai/marketplace) on the company GitLab. You can also add it from a local clone:
+> `/plugin marketplace add /path/to/marketplace`
 
 ## What's inside
 
