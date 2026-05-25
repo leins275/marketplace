@@ -1,5 +1,7 @@
 # ITS Marketplace
 
+> **Notice:** The active marketplace has moved to [`gitlab.its.xyz/ai/marketplace`](https://gitlab.its.xyz/ai/marketplace). This GitHub repository is now archived and no longer maintained.
+
 A [Claude Code](https://docs.claude.com/en/docs/claude-code) plugin marketplace for the ITS team. It packages the skills and tools our engineers rely on into a set of installable toolkits, so every teammate gets the same standards with a single command.
 
 The skill files are **vendored** — copied into this repo from their upstream repositories — and refreshed on demand with `make sync`. [`sources.json`](sources.json) records exactly where every skill comes from, so updates are traceable and reviewed before they reach the whole team.
